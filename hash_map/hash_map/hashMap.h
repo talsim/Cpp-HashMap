@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 #pragma once
 template <typename K, typename V>
 
@@ -20,7 +21,8 @@ public:
 	HashMap();
 	HashMap(K, V);
 	~HashMap();
+	size_t hash(K);
 private:
 	std::vector<Pair<K,V>> data;
-	size_t size;
+	size_t MaxSize;
 };
