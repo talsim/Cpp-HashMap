@@ -1,6 +1,6 @@
+#pragma once
 #include <vector>
 #include <string>
-#pragma once
 template <typename K, typename V>
 
 class Pair
@@ -15,14 +15,14 @@ public:
 };
 
 template <typename K, typename V>
-class HashMap 
+class HashMap
 {
 public:	
 	HashMap();
 	HashMap(K, V);
 	~HashMap();
-	size_t hash(K);
+	size_t hashCode(K);
 private:
 	std::vector<Pair<K,V>> data;
-	size_t MaxSize;
+	size_t maxSize;
 };
