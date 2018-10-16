@@ -25,8 +25,22 @@ public:
 	{
 
 	}
-	size_t hashCode(K);
+	int hashCode(K);
 private:
 	std::vector<Pair<K,V>> data;
 	size_t maxSize;
 };
+
+template <typename K, typename V>
+int HashMap<K, V>::hashCode(K key)
+{
+	string keyToStr = "";
+	keyToStr = to_string(key);
+	int hash = 0;
+	int index = 0;
+	int str_size = 0;
+	for (int i = 0; i < keyToStr.length(); i++) // change to ascii number
+		hash = hash + (int)keyToStr[i];
+	index = hash % maxSize;
+	return index;
+}
