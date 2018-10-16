@@ -1,2 +1,2 @@
-# hash_map
+# HashMap
 simple hash map in C++ language
