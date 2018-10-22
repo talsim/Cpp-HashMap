@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /hash_map/hash_map/hash_map.vcxproj.filters
 /hash_map/hash_map/hash_map.vcxproj
+/HashMap/main/main.vcxproj.filters
+/HashMap/main/main.vcxproj
+/HashMap/main/main.cpp
