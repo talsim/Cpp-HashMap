@@ -23,7 +23,6 @@ public:
 	}
 	~HashMap()
 	{
-
 	}
 	int hashCode(K);
 private:
@@ -38,7 +37,6 @@ int HashMap<K, V>::hashCode(K key)
 	keyToStr = to_string(key);
 	int hash = 0;
 	int index = 0;
-	int str_size = 0;
 	for (int i = 0; i < keyToStr.length(); i++) // change to ascii number
 		hash = hash + (int)keyToStr[i];
 	index = hash % maxSize;
