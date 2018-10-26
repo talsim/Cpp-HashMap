@@ -33,12 +33,12 @@ private:
 template <typename K, typename V>
 int HashMap<K, V>::hashCode(K key)
 {
-	string keyToStr = "";
-	keyToStr = to_string(key);
+	string keyToStr = to_string(key);
 	int hash = 0;
 	int index = 0;
-	for (int i = 0; i < keyToStr.length(); i++) // change to ascii number
-		hash = hash + (int)keyToStr[i];
+	for (auto c : keyToStr) // change to ascii number
+		hash = hash + (int)c;
 	index = hash % maxSize;
 	return index;
 }
+// TODO: implement the best hashCode to avoid chaning 
