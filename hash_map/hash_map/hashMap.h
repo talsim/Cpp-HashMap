@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 template <typename K, typename V>
+
 class Pair
 {
 public:
@@ -28,11 +29,18 @@ public:
 private:
 	std::vector<Pair<K,V>> data;
 	size_t maxSize;
+
 };
+
+std::string to_string(const std::string& val)
+{
+	return val;
+}
 
 template <typename K, typename V>
 int HashMap<K, V>::hashCode(K key)
 {
+	using namespace std;
 	string keyToStr = to_string(key);
 	int hash = 0;
 	int index = 0;
