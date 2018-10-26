@@ -1,8 +1,12 @@
 #include <vector>
 #include <string>
-using namespace std;
-template <typename K, typename V>
 
+std::string to_string(const std::string& val)
+{
+	return val;
+}
+
+template <typename K, typename V>
 class Pair
 {
 public:
@@ -25,17 +29,15 @@ public:
 	~HashMap()
 	{
 	}
-	int hashCode(K);
+	
+	void insert(Pair<K, V> pair);
+
 private:
 	std::vector<Pair<K,V>> data;
 	size_t maxSize;
+	int hashCode(K);
 
 };
-
-std::string to_string(const std::string& val)
-{
-	return val;
-}
 
 template <typename K, typename V>
 int HashMap<K, V>::hashCode(K key)
@@ -50,3 +52,10 @@ int HashMap<K, V>::hashCode(K key)
 	return index;
 }
 // TODO: implement the best hashCode to avoid chaning 
+
+template<typename K, typename V>
+void HashMap<K, V>::insert(Pair<K,V> pair)
+{
+	// index = hashCode(key)
+	// vector.push_in_index(index, value);
+}
