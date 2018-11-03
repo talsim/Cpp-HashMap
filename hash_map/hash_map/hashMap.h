@@ -24,17 +24,18 @@ class HashMap
 public:
 	HashMap()
 	{
-		maxSize = data.max_size();
+		maxSize = 128;
+		currSize = 0;
 	}
 	~HashMap()
 	{
 	}
-	
-	void insert(Pair<K, V> pair);
+	void insert(K key, V value);
 
 private:
-	std::vector<Pair<K,V>> data;
+	std::vector<Pair<K, V>> *data = new std::vector<Pair<K, V>>[128];
 	size_t maxSize;
+	size_t currSize;
 	int hashCode(K);
 
 };
@@ -51,11 +52,15 @@ int HashMap<K, V>::hashCode(K key)
 	index = hash % maxSize;
 	return index;
 }
-// TODO: implement the best hashCode to avoid chaning 
+// TODO: implement the best hashCode to avoid chaning
 
 template<typename K, typename V>
-void HashMap<K, V>::insert(Pair<K,V> pair)
+void HashMap<K, V>::insert(const K key, const V value)
 {
-	// index = hashCode(key)
-	// vector.push_in_index(index, value);
+	/*Pair<K, V> pair = new Pair<K, V>(key, value);*/
+	Pair<K, V> pair = Pair<K, V>(key, value);
+	int index = hashCode(key);
+	std::vector<Pair<K, V>> vecPair = data[index];
+	vecPair.push_back(pair);
+	currSize++;
 }
