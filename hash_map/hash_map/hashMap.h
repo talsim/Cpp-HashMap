@@ -12,6 +12,12 @@ class Pair
 public:
 	K key;
 	V value;
+	Pair()
+	{
+		this->key = 0;
+		this->value = 0;
+	}
+	
 	Pair(K key, V value) {
 		this->key = key;
 		this->value = value;
@@ -26,6 +32,7 @@ public:
 	{
 		maxSize = 128;
 		currSize = 0;
+		data = new std::vector<Pair<K, V>>[128]; // problem with generic type
 	}
 	~HashMap()
 	{
@@ -33,11 +40,10 @@ public:
 	void insert(K key, V value);
 
 private:
-	std::vector<Pair<K, V>> *data = new std::vector<Pair<K, V>>[128];
+	std::vector<Pair<K, V>>* data; // problem with generic type
 	size_t maxSize;
 	size_t currSize;
 	int hashCode(K);
-
 };
 
 template <typename K, typename V>
@@ -57,10 +63,8 @@ int HashMap<K, V>::hashCode(K key)
 template<typename K, typename V>
 void HashMap<K, V>::insert(const K key, const V value)
 {
-	/*Pair<K, V> pair = new Pair<K, V>(key, value);*/
-	Pair<K, V> pair = Pair<K, V>(key, value);
+	Pair<K, V> *newPair = new Pair<K, V>(key, value);
 	int index = hashCode(key);
-	std::vector<Pair<K, V>> vecPair = data[index];
-	vecPair.push_back(pair);
+	//data[index].push_back(pair);
 	currSize++;
 }
