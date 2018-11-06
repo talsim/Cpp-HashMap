@@ -1,4 +1,3 @@
-#include <vector>
 #include <string>
 
 std::string to_string(const std::string& val)
@@ -7,18 +6,18 @@ std::string to_string(const std::string& val)
 }
 
 template <typename K, typename V>
-class Pair
+class HashNode
 {
 public:
 	K key;
 	V value;
-	Pair()
+
+	HashNode()
 	{
-		this->key = 0;
-		this->value = 0;
+		key = 0;
+		value = 0;
 	}
-	
-	Pair(K key, V value) {
+	HashNode(K key, V value) {
 		this->key = key;
 		this->value = value;
 	}
@@ -27,23 +26,27 @@ public:
 template <typename K, typename V>
 class HashMap
 {
+private:
+	HashNode<K, V> **arr;
+	size_t mapSize;
+	size_t currSize;
+	HashNode<K, V> *dummy;
+	int hashCode(K);
+
 public:
 	HashMap()
 	{
-		maxSize = 128;
+		mapSize = 64;
 		currSize = 0;
-		data = new std::vector<Pair<K, V>>[128]; // problem with generic type
+		arr = new HashNode<K, V>*[mapSize];
+		for (int i = 0; i < mapSize; i++)
+			arr[i] = NULL;
+		//dummy = new HashNode<K, V>(-1, -1); initialize to something for search function to work
 	}
 	~HashMap()
 	{
 	}
 	void insert(K key, V value);
-
-private:
-	std::vector<Pair<K, V>>* data; // problem with generic type
-	size_t maxSize;
-	size_t currSize;
-	int hashCode(K);
 };
 
 template <typename K, typename V>
@@ -55,7 +58,7 @@ int HashMap<K, V>::hashCode(K key)
 	int index = 0;
 	for (auto c : keyToStr) // change to ascii number
 		hash = hash + (int)c;
-	index = hash % maxSize;
+	index = hash % mapSize;
 	return index;
 }
 // TODO: implement the best hashCode to avoid chaning
@@ -63,8 +66,8 @@ int HashMap<K, V>::hashCode(K key)
 template<typename K, typename V>
 void HashMap<K, V>::insert(const K key, const V value)
 {
-	Pair<K, V> *newPair = new Pair<K, V>(key, value);
+	HashNode<K, V> *newPair = new HashNode<K, V>(key, value);
 	int index = hashCode(key);
-	//data[index].push_back(pair);
+	//push to arr
 	currSize++;
 }
