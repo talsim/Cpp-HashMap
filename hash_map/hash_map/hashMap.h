@@ -6,18 +6,18 @@ std::string to_string(const std::string& val)
 }
 
 template <typename K, typename V>
-class HashNode
+class HashPair
 {
 public:
 	K key;
 	V value;
 
-	HashNode()
+	HashPair()
 	{
 		key = 0;
 		value = 0;
 	}
-	HashNode(K key, V value) {
+	HashPair(K key, V value) {
 		this->key = key;
 		this->value = value;
 	}
@@ -27,10 +27,9 @@ template <typename K, typename V>
 class HashMap
 {
 private:
-	HashNode<K, V> **arr;
+	HashPair<K, V> **arr;
 	size_t mapSize;
 	size_t currSize;
-	HashNode<K, V> *dummy;
 	int hashCode(K);
 
 public:
@@ -38,15 +37,15 @@ public:
 	{
 		mapSize = 64;
 		currSize = 0;
-		arr = new HashNode<K, V>*[mapSize];
+		arr = new HashPair<K, V>*[mapSize];
 		for (int i = 0; i < mapSize; i++)
 			arr[i] = NULL;
-		//dummy = new HashNode<K, V>(-1, -1); initialize to something for search function to work
 	}
 	~HashMap()
 	{
 	}
 	void insert(K key, V value);
+	void display();
 };
 
 template <typename K, typename V>
@@ -66,8 +65,28 @@ int HashMap<K, V>::hashCode(K key)
 template<typename K, typename V>
 void HashMap<K, V>::insert(const K key, const V value)
 {
-	HashNode<K, V> *newPair = new HashNode<K, V>(key, value);
-	int index = hashCode(key);
-	//push to arr
+	HashPair<K, V> *newPair = new HashPair<K, V>(key, value);
+	int hashIndex = hashCode(key);
+	while (arr[hashIndex] != NULL)
+	{
+		hashIndex++;
+		hashIndex %= mapSize;
+	}
+	//if (currSize >= 1)
+	//{
+	//	while (arr[hashIndex]->key != key) // NULL
+	//	{
+	//		hashIndex++;
+	//		hashIndex %= mapSize;
+	//	}
+	//}
 	currSize++;
+	arr[hashIndex] = newPair;
+}
+
+template<typename K, typename V>
+void HashMap<K, V>::display()
+{
+	for (int i = 0; i < currSize; i++)
+		std::cout << "key = " << arr[i]->key << std::endl << "value = " << arr[i]->value << std::endl << "----------------------------" << std::endl << "----------------------------" << std::endl;
 }
