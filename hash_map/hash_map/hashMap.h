@@ -1,5 +1,8 @@
 #include <vector>
 #include <string>
+#include <array>
+
+#define MAX_SIZE 2
 
 std::string to_string(const std::string& val)
 {
@@ -7,32 +10,12 @@ std::string to_string(const std::string& val)
 }
 
 template <typename K, typename V>
-class Pair
-{
-public:
-	K key;
-	V value;
-	Pair()
-	{
-		this->key = 0;
-		this->value = 0;
-	}
-	
-	Pair(K key, V value) {
-		this->key = key;
-		this->value = value;
-	}
-};
-
-template <typename K, typename V>
 class HashMap
 {
 public:
 	HashMap()
 	{
-		maxSize = 128;
 		currSize = 0;
-		data = new std::vector<Pair<K, V>>[128]; // problem with generic type
 	}
 	~HashMap()
 	{
@@ -40,8 +23,7 @@ public:
 	void insert(K key, V value);
 
 private:
-	std::vector<Pair<K, V>>* data; // problem with generic type
-	size_t maxSize;
+	std::array<std::vector<std::pair<K, V>>, MAX_SIZE> data; 
 	size_t currSize;
 	int hashCode(K);
 };
@@ -55,7 +37,7 @@ int HashMap<K, V>::hashCode(K key)
 	int index = 0;
 	for (auto c : keyToStr) // change to ascii number
 		hash = hash + (int)c;
-	index = hash % maxSize;
+	index = hash % MAX_SIZE;
 	return index;
 }
 // TODO: implement the best hashCode to avoid chaning
@@ -63,8 +45,8 @@ int HashMap<K, V>::hashCode(K key)
 template<typename K, typename V>
 void HashMap<K, V>::insert(const K key, const V value)
 {
-	Pair<K, V> *newPair = new Pair<K, V>(key, value);
+	std::pair<K,V> pairToAdd = ;
 	int index = hashCode(key);
-	//data[index].push_back(pair);
+	data[index].push_back(make_pair(key, value));
 	currSize++;
 }
