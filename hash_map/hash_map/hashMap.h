@@ -15,17 +15,19 @@ class HashMap
 public:
 	HashMap()
 	{
-		currSize = 0;
+		curr_size = 0;
 	}
 	~HashMap()
 	{
 	}
 	void insert(K key, V value);
+	void display();
 
 private:
-	std::array<std::vector<std::pair<K, V>>, MAX_SIZE> data; 
-	size_t currSize;
+	std::array<std::vector<std::pair<K, V>>, MAX_SIZE> data;
+	size_t curr_size;
 	int hashCode(K);
+	bool is_last_pair();
 };
 
 template <typename K, typename V>
@@ -43,8 +45,28 @@ int HashMap<K, V>::hashCode(K key)
 // TODO: implement the best hashCode to avoid chaning
 
 template<typename K, typename V>
+bool HashMap<K, V>::is_last_pair()
+{
+	return false;
+}
+
+template<typename K, typename V>
 void HashMap<K, V>::insert(const K key, const V value)
 {
 	data[hashCode(key)].push_back(std::make_pair(key, value));
-	currSize++;
+	curr_size++;
+}
+
+// python style printing
+template<typename K, typename V>
+void HashMap<K, V>::display()
+{
+	std::cout << "{";
+	for (int i = 0; i <	MAX_SIZE; i++)
+	{
+		for (int j = 0; j < data[i].size(); j++) // for on the pairs
+			std::cout << data[i][j].first << ":" << data[i][j].second << ", ";
+			if(is_last_pair())
+				std::cout << "}" << std::endl;
+	}
 }
