@@ -2,7 +2,7 @@
 #include <string>
 #include <array>
 
-#define MAX_SIZE 2
+#define MAX_SIZE 64
 
 std::string to_string(const std::string& val)
 {
@@ -45,8 +45,6 @@ int HashMap<K, V>::hashCode(K key)
 template<typename K, typename V>
 void HashMap<K, V>::insert(const K key, const V value)
 {
-	std::pair<K,V> pairToAdd = ;
-	int index = hashCode(key);
-	data[index].push_back(make_pair(key, value));
+	data[hashCode(key)].push_back(std::make_pair(key, value));
 	currSize++;
 }
