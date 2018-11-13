@@ -24,6 +24,8 @@ public:
 	void insert(K key, V value);
 	bool contains(const K key);
 	V get(K key);
+	bool is_empty();
+	size_t get_map_size();
 	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj);
 
 private:
@@ -107,4 +109,16 @@ V HashMap<K, V>::get(K key)
 	}
 	std::cout << "Error: key not found!" << std::endl;
 	exit(0);
+}
+
+template<typename K, typename V>
+bool HashMap<K, V>::is_empty()
+{
+	return curr_size == 0;
+}
+
+template<typename K, typename V>
+size_t HashMap<K, V>::get_map_size()
+{
+	return 32;
 }
