@@ -23,6 +23,7 @@ public:
 	size_t curr_size;
 	void insert(K key, V value);
 	bool contains(const K key);
+	V get(K key);
 	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj);
 
 private:
@@ -90,4 +91,20 @@ bool HashMap<K, V>::contains(const K key)
 				return true;
 	}
 	return false;
+}
+
+template<typename K, typename V>
+V HashMap<K, V>::get(K key)
+{
+	if (contains(key))
+	{
+		for (int i = 0; i < MAX_SIZE; i++)
+		{
+			for (int j = 0; j < data[i].size(); j++)
+				if (data[i][j].first == key)
+					return data[i][j].second;
+		}
+	}
+	std::cout << "Error: key not found!" << std::endl;
+	exit(0);
 }
