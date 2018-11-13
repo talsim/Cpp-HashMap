@@ -20,13 +20,14 @@ public:
 	~HashMap()
 	{
 	}
+	size_t curr_size;
 	void insert(K key, V value);
 	bool contains(const K key);
-	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& dt);
+	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj);
 
 private:
+	// TODO: implement the best hashCode to avoid chaning
 	std::array<std::vector<std::pair<K, V>>, MAX_SIZE> data;
-	size_t curr_size;
 	int hashCode(K);
 };
 
@@ -42,23 +43,28 @@ int HashMap<K, V>::hashCode(K key)
 	index = hash % MAX_SIZE;
 	return index;
 }
-// TODO: implement the best hashCode to avoid chaning
+
+// python style printing
 template <typename K, typename V>
-std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& dt)
+std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj)
 {
+	using namespace std;
 	std::string storage_str = "";
 	os << "{";
 	for (int i = 0; i < MAX_SIZE; i++)
 	{
-		for (int j = 0; j < dt[i].size(); j++) // for on pairs
+		for (int j = 0; j < obj.data[i].size(); j++) // for on pairs
 		{
-			storage_str += to_string(dt[i][j].first);
+			storage_str += to_string(obj.data[i][j].first);
 			storage_str += ":";
-			storage_str += to_string(dt[i][j].second);
-			storage_str += ",";
+			storage_str += to_string(obj.data[i][j].second);
+			storage_str += ", ";
+			//check if last
 		}
 	}
+	os << storage_str;
 	os << "}";
+	os << std::endl;
 	return os;
 }
 
@@ -85,16 +91,3 @@ bool HashMap<K, V>::contains(const K key)
 	}
 	return false;
 }
-
-// python style printing
-//void HashMap<K, V>::display()
-//{
-//	std::cout << "{";
-//	for (int i = 0; i <	MAX_SIZE; i++)
-//	{
-//		for (int j = 0; j < data[i].size(); j++) // for on the pairs
-//			std::cout << data[i][j].first << ":" << data[i][j].second << ", ";
-//			if()
-//				std::cout << "}" << std::endl;
-//	}
-//}
