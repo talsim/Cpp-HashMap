@@ -2,7 +2,7 @@
 #include <string>
 #include <array>
 
-#define MAX_SIZE 32
+#define MAP_SIZE 32
 
 std::string to_string(const std::string& val)
 {
@@ -30,7 +30,7 @@ public:
 
 private:
 	// TODO: implement the best hashCode to avoid chaning
-	std::array<std::vector<std::pair<K, V>>, MAX_SIZE> data;
+	std::array<std::vector<std::pair<K, V>>, MAP_SIZE> data;
 	int hashCode(K);
 };
 
@@ -43,7 +43,7 @@ int HashMap<K, V>::hashCode(K key)
 	int index = 0;
 	for (auto c : keyToStr) // change to ascii number
 		hash = hash + (int)c;
-	index = hash % MAX_SIZE;
+	index = hash % MAP_SIZE;
 	return index;
 }
 
@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj)
 	using namespace std;
 	std::string storage_str = "";
 	os << "{";
-	for (int i = 0; i < MAX_SIZE; i++)
+	for (int i = 0; i < MAP_SIZE; i++)
 	{
 		for (int j = 0; j < obj.data[i].size(); j++) // for on pairs
 		{
@@ -62,9 +62,9 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj)
 			storage_str += ":";
 			storage_str += to_string(obj.data[i][j].second);
 			storage_str += ", ";
-			//check if last
 		}
 	}
+	storage_str.erase(storage_str.end()-2, storage_str.end()); // to remove the last ','
 	os << storage_str;
 	os << "}";
 	os << std::endl;
@@ -86,7 +86,7 @@ void HashMap<K, V>::insert(const K key, const V value)
 template<typename K, typename V>
 bool HashMap<K, V>::contains(const K key)
 {
-	for (int i = 0; i < MAX_SIZE; i++)
+	for (int i = 0; i < MAP_SIZE; i++)
 	{
 		for (int j = 0; j < data[i].size(); j++)
 			if (data[i][j].first == key)
@@ -100,7 +100,7 @@ V HashMap<K, V>::get(K key)
 {
 	if (contains(key))
 	{
-		for (int i = 0; i < MAX_SIZE; i++)
+		for (int i = 0; i < MAP_SIZE; i++)
 		{
 			for (int j = 0; j < data[i].size(); j++)
 				if (data[i][j].first == key)
@@ -120,5 +120,5 @@ bool HashMap<K, V>::is_empty()
 template<typename K, typename V>
 size_t HashMap<K, V>::get_map_size()
 {
-	return 32;
+	return MAP_SIZE;
 }
