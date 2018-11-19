@@ -2,7 +2,7 @@
 #include <string>
 #include <array>
 
-#define MAP_SIZE 32
+#define MAP_SIZE 2
 
 std::string to_string(const std::string& val)
 {
@@ -24,6 +24,7 @@ public:
 	void insert(K key, V value);
 	bool contains(const K key);
 	V get(K key);
+	void erase(K key);
 	bool is_empty();
 	size_t get_map_size();
 	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj);
@@ -108,6 +109,20 @@ V HashMap<K, V>::get(K key)
 		}
 	}
 	std::cout << "Error: key not found!" << std::endl;
+	exit(0);
+}
+
+template<typename K, typename V>
+void HashMap<K, V>::erase(const K key)
+{
+	for (int i = 0; i < MAP_SIZE; i++)
+	{
+		for (int j = 0; j < data[i].size(); j++)
+			if (data[i][j].first == key)
+				std::cout << "cant delete" << std::endl; // delete line
+				// TODO: remove the pair
+	}
+	std::cout << "Error: key not found!";
 	exit(0);
 }
 
