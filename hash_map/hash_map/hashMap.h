@@ -2,7 +2,7 @@
 #include <string>
 #include <array>
 
-#define MAP_SIZE 2
+#define MAP_SIZE 32
 
 std::string to_string(const std::string& val)
 {
@@ -108,7 +108,7 @@ V HashMap<K, V>::get(K key)
 					return data[i][j].second;
 		}
 	}
-	std::cout << "Error: key not found!" << std::endl;
+	std::cout << "Error: key " << key << " not found!" << std::endl;
 	exit(0);
 }
 
@@ -119,10 +119,13 @@ void HashMap<K, V>::erase(const K key)
 	{
 		for (int j = 0; j < data[i].size(); j++)
 			if (data[i][j].first == key)
-				std::cout << "cant delete" << std::endl; // delete line
-				// TODO: remove the pair
+			{
+				data[i].erase(std::find(data[i].begin(), data[i].end(), data[i][j])); // find the pair and delete it
+				return;
+			}
+				
 	}
-	std::cout << "Error: key not found!";
+	std::cout << "Error: key " << key << " not found!" << std::endl;
 	exit(0);
 }
 
