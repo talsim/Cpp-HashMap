@@ -27,7 +27,7 @@ public:
 	void erase(K key);
 	bool is_empty();
 	size_t get_map_size();
-	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj);
+	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj);
 
 private:
 	// TODO: implement the best hashCode to avoid chaning
@@ -48,10 +48,15 @@ int HashMap<K, V>::hashCode(K key)
 	return index;
 }
 
-// python style printing
+// python printing style
 template <typename K, typename V>
-std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj)
+std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj)
 {
+	if (obj.is_empty() != false)
+	{
+		std::cout << "Error: HashMap is empty!" << std::endl;
+		exit(0);
+	}
 	using namespace std;
 	std::string storage_str = "";
 	os << "{";
@@ -65,7 +70,7 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, V>& obj)
 			storage_str += ", ";
 		}
 	}
-	storage_str.erase(storage_str.end()-2, storage_str.end()); // to remove the last ','
+	storage_str.erase(storage_str.end() - 2, storage_str.end()); // to remove the last ','
 	os << storage_str;
 	os << "}";
 	os << std::endl;
@@ -121,9 +126,10 @@ void HashMap<K, V>::erase(const K key)
 			if (data[i][j].first == key)
 			{
 				data[i].erase(std::find(data[i].begin(), data[i].end(), data[i][j])); // find the pair and delete it
+				curr_size--;
 				return;
 			}
-				
+
 	}
 	std::cout << "Error: key " << key << " not found!" << std::endl;
 	exit(0);
