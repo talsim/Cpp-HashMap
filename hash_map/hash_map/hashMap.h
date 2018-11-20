@@ -25,6 +25,7 @@ public:
 	bool contains(const K key);
 	V get(K key);
 	void erase(K key);
+	void clear();
 	bool is_empty();
 	size_t get_map_size();
 	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj);
@@ -70,7 +71,7 @@ std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj)
 			storage_str += ", ";
 		}
 	}
-	storage_str.erase(storage_str.end() - 2, storage_str.end()); // to remove the last ','
+	storage_str.erase(storage_str.end()-2, storage_str.end()); // to remove the last ','
 	os << storage_str;
 	os << "}";
 	os << std::endl;
@@ -129,10 +130,18 @@ void HashMap<K, V>::erase(const K key)
 				curr_size--;
 				return;
 			}
-
+				
 	}
 	std::cout << "Error: key " << key << " not found!" << std::endl;
 	exit(0);
+}
+
+template<typename K, typename V>
+void HashMap<K, V>::clear()
+{
+	for (int i = 0; i < MAP_SIZE; i++)
+		data[i].clear();
+	curr_size = 0;
 }
 
 template<typename K, typename V>
