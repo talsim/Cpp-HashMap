@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj)
 {
 	if (obj.is_empty() != false)
 	{
-		std::cout << "Error: HashMap is empty!" << std::endl;
+		std::cout << "{}" << std::endl;
 		exit(0);
 	}
 	using namespace std;
