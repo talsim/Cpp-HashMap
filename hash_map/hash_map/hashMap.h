@@ -31,7 +31,6 @@ public:
 	template <typename K, typename V> friend std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj);
 
 private:
-	// TODO: implement the best hashCode to avoid chaning
 	std::array<std::vector<std::pair<K, V>>, MAP_SIZE> data;
 	int hashCode(K);
 };
