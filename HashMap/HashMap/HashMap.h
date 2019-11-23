@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <string>
 #include <array>
@@ -70,7 +71,7 @@ std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj)
 			storage_str += ", ";
 		}
 	}
-	storage_str.erase(storage_str.end()-2, storage_str.end()); // to remove the last ','
+	storage_str.erase(storage_str.end() - 2, storage_str.end()); // to remove the last ','
 	os << storage_str;
 	os << "}";
 	os << std::endl;
@@ -129,7 +130,7 @@ void HashMap<K, V>::erase(const K key)
 				curr_size--;
 				return;
 			}
-				
+
 	}
 	std::cout << "Error: key " << key << " not found!" << std::endl;
 	exit(0);
