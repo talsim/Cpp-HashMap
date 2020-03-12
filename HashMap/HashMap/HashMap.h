@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <array>
+#include <iostream>
 
 #define MAP_SIZE 32
 
@@ -107,12 +108,11 @@ V HashMap<K, V>::get(K key)
 {
 	if (contains(key))
 	{
-		for (int i = 0; i < MAP_SIZE; i++)
-		{
-			for (int j = 0; j < data[i].size(); j++)
-				if (data[i][j].first == key)
-					return data[i][j].second;
-		}
+		int vectorIndex = hashCode(key);
+		auto vec = data[vectorIndex];
+		for (int i = 0; i < vec.size(); i++)
+			if (vec[i].first == key)
+				return vec[i].second;
 	}
 	std::cout << "Error: key " << key << " not found!" << std::endl;
 	exit(0);

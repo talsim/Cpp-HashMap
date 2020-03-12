@@ -10,8 +10,8 @@ int main()
 	obj.insert("eli", 900);
 	obj.insert("mama", 800);
 	obj.insert("hello", 700);
-	obj.clear();
 	cout << obj;
+	obj.get("lol");
 	return 0;
 }
 
