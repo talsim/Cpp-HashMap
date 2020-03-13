@@ -85,7 +85,7 @@ void HashMap<K, V>::insert(const K key, const V value)
 	if (contains(key))
 	{
 		std::cout << "Error: key " << key << " already exists!" << std::endl;
-		exit(0);
+		return;
 	}
 	data[hashCode(key)].push_back(std::make_pair(key, value));
 	curr_size++;
@@ -94,12 +94,10 @@ void HashMap<K, V>::insert(const K key, const V value)
 template<typename K, typename V>
 bool HashMap<K, V>::contains(const K key)
 {
-	for (int i = 0; i < MAP_SIZE; i++)
-	{
-		for (int j = 0; j < data[i].size(); j++)
-			if (data[i][j].first == key)
+	auto vec = data[hashCode(key)];
+		for (int i = 0; i < vec.size(); i++)
+			if (vec[i].first == key)
 				return true;
-	}
 	return false;
 }
 
