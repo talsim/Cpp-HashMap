@@ -106,16 +106,11 @@ bool HashMap<K, V>::contains(const K key)
 template<typename K, typename V>
 V HashMap<K, V>::get(K key)
 {
-	if (contains(key))
-	{
-		int vectorIndex = hashCode(key);
-		auto vec = data[vectorIndex];
-		for (int i = 0; i < vec.size(); i++)
-			if (vec[i].first == key)
-				return vec[i].second;
-	}
+	auto vec = data[hashCode(key)];
+	for (int i = 0; i < vec.size(); i++)
+		if (vec[i].first == key)
+			return vec[i].second;
 	std::cout << "Error: key " << key << " not found!" << std::endl;
-	exit(0);
 }
 
 template<typename K, typename V>
@@ -133,7 +128,6 @@ void HashMap<K, V>::erase(const K key)
 
 	}
 	std::cout << "Error: key " << key << " not found!" << std::endl;
-	exit(0);
 }
 
 template<typename K, typename V>
