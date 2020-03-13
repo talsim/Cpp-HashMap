@@ -111,6 +111,7 @@ V HashMap<K, V>::get(K key)
 		if (vec[i].first == key)
 			return vec[i].second;
 	std::cout << "Error: key " << key << " not found!" << std::endl;
+	return NULL;
 }
 
 template<typename K, typename V>
