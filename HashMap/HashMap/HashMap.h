@@ -95,9 +95,9 @@ template<typename K, typename V>
 bool HashMap<K, V>::contains(const K key)
 {
 	auto vec = data[hashCode(key)];
-		for (int i = 0; i < vec.size(); i++)
-			if (vec[i].first == key)
-				return true;
+	for (int i = 0; i < vec.size(); i++)
+		if (vec[i].first == key)
+			return true;
 	return false;
 }
 
@@ -113,19 +113,16 @@ V HashMap<K, V>::get(K key)
 }
 
 template<typename K, typename V>
-void HashMap<K, V>::erase(const K key)
+void HashMap<K, V>::erase(K key)
 {
-	for (int i = 0; i < MAP_SIZE; i++)
-	{
-		for (int j = 0; j < data[i].size(); j++)
-			if (data[i][j].first == key)
-			{
-				data[i].erase(std::find(data[i].begin(), data[i].end(), data[i][j])); // find the pair and delete it
-				curr_size--;
-				return;
-			}
-
-	}
+	auto &vec = data[hashCode(key)];
+	for (int i = 0; i < vec.size(); i++)
+		if (vec[i].first == key)
+		{
+			vec.erase(std::find(vec.begin(), vec.end(), vec[i])); // find the pair and delete it
+			curr_size--;
+			return;
+		}
 	std::cout << "Error: key " << key << " not found!" << std::endl;
 }
 
