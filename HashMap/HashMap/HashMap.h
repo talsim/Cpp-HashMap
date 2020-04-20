@@ -54,10 +54,10 @@ int HashMap<K, V>::hashCode(K key)
 template <typename K, typename V>
 std::ostream& operator<<(std::ostream& os, HashMap<K, V>& obj)
 {
-	if (obj.is_empty() != false)
+	if (obj.is_empty())
 	{
-		std::cout << "{}" << std::endl;
-		exit(0);
+		os << "{}" << std::endl;
+		return os;
 	}
 	using namespace std;
 	std::string storage_str = "";
